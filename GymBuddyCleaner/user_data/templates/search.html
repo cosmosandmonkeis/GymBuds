@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block active %}
+  <li class="nav-item ">
+    <a class="nav-link" href="{% url 'gym_home' %}">Home </a>
+  </li>
+  <li class="nav-item active ">
+    <a class="nav-link" href="{% url 'search' %}">Search </a>
+  </li>
+  <li class="nav-item ">
+    <a class="nav-link" href="{% url 'messages' %}" >Messages </a>
+    </li>
+{% endblock %}
+
+{% block body%}
+  <body>
+   <link rel="stylesheet" type="text/css" href="{% static '/js/GymBuddyStyle.css' %}">
+  <div class ="container">
+    <div class ="row">
+    <div class="col-md-6">
+      <div class="card-body">
+        <img src= "{% static 'js/profpic2.jpg' %}" width = "500" height = "500" >
+      </div>
+    </div>
+    <div class= "col-md-6">
+      <h1 id="name-head"> Name here </h1>
+      <h2 id="sex-head">Sex, Age</h2>
+      <img src = "{% static 'js/pin.png' %}" width = "10" length = "10">
+      <h3 id="city-head">City, CA</h3>
+      <br/>
+      <img src = "{% static 'js/run.png' %}" width = "20" length = "20">
+      <h3 id="gym-head"></h3>
+      <br/>
+      <button class="button" id="experience-head">Experience</button>
+      <button class="button" id="goal-head">Goal</button>
+      <p>Hello! My name is Ava! I live in the Bay Area. I like cardio and eating lots of food. I am looking for a partner who is beginner level and will motivate me to do my best! Message me if you are interested!</p>
+      <div class="row">
+        <div class="column">
+          <img class = "moveimage" src="{% static 'js/heart.png' %}" alt="heart" width = "80" length = "80">
+        </div>
+        <div class="column">
+          <img class = "moveimage" id="send-to-message" src ="{% static 'js/chat.png' %}"  alt = "chat" width = "80" length = "80">
+        </div>
+        <div class="column">
+          <img class = "moveimage" id="change-person" src="{% static 'js/letter-x.png' %}" alt="x" width = "80" height = "80">
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+  <script>
+  //var someval = "{{canidates}}";
+  var value = JSON.parse("{{ canidates|escapejs}}");
+  console.log(value);
+    $(document).ready(function(){
+          console.log(value[0]["fields"]);
+          var index = 0;
+          $('#change-person').click(function(){
+            $('#name-head').html(value[index]["fields"]["name"]); 
+            $('#sex-head').html(value[index]["fields"]["sex"].concat( ",", value[index]["fields"]["age"].toString())); 
+            $('#city-head').html(value[index]["fields"]["city"]);
+            $('#experience-head').html(value[index]["fields"]["experience"]);
+            $('#goal-head').html(value[index]["fields"]["goal"]);
+            index = (index + 1) % value.length;
+          });
+          
+      });
+  </script>
+</body>
+{% endblock %}

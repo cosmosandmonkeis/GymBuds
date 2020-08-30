@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block active%}
+    <li class="nav-item ">
+        <a class="nav-link" href="{% url 'gym_home' %}">Home </a>
+    </li>
+    <li class="nav-item ">
+        <a class="nav-link " href="{% url 'search' %}" >Search </a>
+    </li>
+    <li class="nav-item active">
+        <a class="nav-link" href="{% url 'messages' %}" >Messages </a>
+    </li>
+{% endblock %}
+
+{% block body %}
+    <body>
+        {% block content %}
+        <form method="post">
+            {% csrf_token %}
+            {{ formset.management_form }}
+            <div class ="container">
+                {{form}}
+                <button type="submit" class="btn btn-primary container">Submit</button>
+            </div>
+        </form>
+        {% endblock %}
+    </body>
+{% endblock%}
