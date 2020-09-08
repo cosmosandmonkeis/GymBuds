@@ -5,8 +5,7 @@ from django.contrib.auth.models import User
 goal_choices = ( 
     ("Bulk", "Bulk"), 
     ("Cut", "Cut"),
-    ("Tone", "Tone"),
-    
+    ("Tone", "Tone")
 )
 
 experience_choices = (
@@ -28,6 +27,7 @@ city_choices = (
 gym_choices = (
     ('ASI Recreation Center', 'ASI Recreation Center'),
 )
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
