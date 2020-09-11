@@ -5,5 +5,5 @@ class UsersConfig(AppConfig):
     name = 'Users'
     
     def ready(self):
-        import users.signals
+        import GymBuddyCleaner.User.Signals
 

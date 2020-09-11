@@ -2,6 +2,19 @@
 
 {% block content %}
     <div class="container">
-      <h1> Authenticated users here </h1>
-    </div>
+        <h1> Authenticated users here </h1>
+        <h2> List possible matches here (Users with profiles are listed here) </h2>
+        <li>
+            {% for user in UsersList %}
+                {% if user.profile %}
+                    {{ user.profile.first_name }}
+                    {{ user.profile.last_name }}
+                    {{ user.profile.age }}
+                    {{ user.profile.goal }}
+                    {{ user.profile.sex }}
+                {% endif %}
+            {% endfor %}
+
+        </li>
+            </div>
 {% endblock %}
