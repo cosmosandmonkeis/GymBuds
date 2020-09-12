@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from Users.models import Profile
+
 
 # Create your views here.
 
@@ -17,6 +18,7 @@ def nonauth_home(request):
     return render(request, 'Search/nonauth-home.html', {})
 
 
+# here we can use this list view to list possible user
 class ProfileListView(LoginRequiredMixin, ListView):
     model = User
     template_name = 'Search/search-home.html'
@@ -26,9 +28,12 @@ class ProfileListView(LoginRequiredMixin, ListView):
     redirect_field_name = 'redirect_to'
 
 
-class ProfileDetailView(DetailView):
-    model = Profile
+# here we will use this list view to display specific user's details
+class ProfileModifiedListView(ListView):
+    model = User
     template_name = 'Search/search-profile-details.html'
+    context_object_name = 'specificUser'
 
-    slug_field = 'user'
-    slug_url_kwarg = 'user'
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Profile.objects.filter(user=user)

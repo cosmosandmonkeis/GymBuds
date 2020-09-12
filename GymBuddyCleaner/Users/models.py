@@ -63,8 +63,4 @@ class Profile(models.Model):
 def create_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
-    # instance.profile.save()
-    # try:
-    #     instance.profile.save()
-    # except Profile.RelatedObjectDoesNotExist:
-    #     Profile.objects.create(user=instance)
+    instance.profile.save()

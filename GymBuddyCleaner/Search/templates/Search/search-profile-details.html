@@ -3,6 +3,8 @@
 {% block content %}
     <div class="container">
         <h1> profile detail view </h1>
-        {{ object.first_name }}
+        {% for user in specificUser %}
+            {{ user.first_name }}
+        {% endfor %}
     </div>
 {% endblock %}
